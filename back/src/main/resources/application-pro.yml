@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+logging:
+  file:
+    path: ./runtime.log
+  level:
+    root: error
+
+
+debug: false
+
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/warehouse?characterEncoding=UTF-8&amp;characterSetResults=UTF-8&amp;serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+
+# Mybatis 实体包扫描配置
+mybatis:
+  type-aliases-package: cn.nanami52.warehouse.entity
