@@ -11,16 +11,26 @@ public class User {
     private String username;
     @ApiModelProperty("用户密码")
     private String password;
-    @ApiModelProperty("用户权限")
+    @ApiModelProperty("用户权限[保留字段]")
     private Integer userAuth;
     @ApiModelProperty("用户昵称")
     private String nickName;
     @ApiModelProperty("创建时间戳")
     private Long createTime;
-    @ApiModelProperty("账户状态")
+    @ApiModelProperty("账户状态：0、正常 1、受限 2、冻结")
     private Integer status;
-    @ApiModelProperty("逻辑删除")
+    @ApiModelProperty("逻辑删除：1 删除 0 正常")
     private Byte isDel;
+    @ApiModelProperty("用户组id（多用户组逗号分隔）")
+    private String userGroup;
+
+    public String getUserGroup() {
+        return userGroup;
+    }
+
+    public void setUserGroup(String userGroup) {
+        this.userGroup = userGroup;
+    }
 
     public Long getId() {
         return id;

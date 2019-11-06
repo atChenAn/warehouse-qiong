@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel("用户查询参数模型")
-public class UserListGet extends PageParams {
+public class RequestUserListGet extends PageParams {
 
     @ApiModelProperty("用户ID")
     private String id;
@@ -49,7 +49,7 @@ public class UserListGet extends PageParams {
 
     @Override
     public String toString() {
-        return "UserListGet{" +
+        return "ResponseUserListGet{" +
                 "id='" + id + '\'' +
                 ", userName='" + userName + '\'' +
                 ", nickName='" + nickName + '\'' +

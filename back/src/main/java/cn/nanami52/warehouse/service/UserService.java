@@ -36,6 +36,7 @@ public class UserService implements BaseService<User> {
 
     @Override
     public User queryOne(User data) {
-        return this.userMapper.selectByPrimaryKey(data.getId());
+        return new User();
+        // return this.userMapper.selectByPrimaryKey(data.getId());
     }
 }

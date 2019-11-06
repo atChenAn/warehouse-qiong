@@ -34,8 +34,8 @@ public class Swagger2 {
                 .title("仓储管理 API Document")
                 .description("仓管API文档")
                 .termsOfServiceUrl("http://localhost:8080")
-                .license("Apache License Version 2.0")
-                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
+                .license("前台首页")
+                .licenseUrl("http://localhost:8080/home/index")
                 .version("1.0.0").build();
     }
 }
