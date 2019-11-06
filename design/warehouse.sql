@@ -97,7 +97,7 @@ create table warehouse_detail
 (
    id                   int(11) not null,
    warehourse_id        int(11),
-   name                 varrchar(100),
+   name                 varchar(100),
    date                 int(11),
    plan_count           int(11),
    remark               varchar(200),

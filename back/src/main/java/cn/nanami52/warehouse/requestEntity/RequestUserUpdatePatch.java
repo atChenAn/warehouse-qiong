@@ -6,8 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel("用户修改请求模型")
 public class RequestUserUpdatePatch {
 
-    @ApiModelProperty("用户ID")
-    private String id;
     @ApiModelProperty("用户昵称")
     private String nickName;
     @ApiModelProperty("用户密码")
@@ -17,13 +15,6 @@ public class RequestUserUpdatePatch {
     @ApiModelProperty("用户状态：0：正常 1：受限 2：冻结")
     private String status;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getNickName() {
         return nickName;
