@@ -1,10 +1,11 @@
 package cn.nanami52.warehouse.service;
 
-import cn.nanami52.warehouse.mapper.UserMapper;
+import cn.nanami52.warehouse.dao.UserMapper;
 import cn.nanami52.warehouse.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,11 +31,11 @@ public class UserService implements BaseService<User> {
 
     @Override
     public List<User> query(User data) {
-        return this.userMapper.query(data);
+        return new ArrayList<>();
     }
 
     @Override
     public User queryOne(User data) {
-        return null;
+        return this.userMapper.selectByPrimaryKey(data.getId());
     }
 }

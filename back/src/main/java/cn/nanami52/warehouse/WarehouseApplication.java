@@ -10,7 +10,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2()
 @SpringBootApplication(scanBasePackages = "cn.nanami52.warehouse")
-@MapperScan("cn.nanami52.warehouse.mapper")
+@MapperScan("cn.nanami52.warehouse.dao")
 public class WarehouseApplication {
 
     public static void main(String[] args) {

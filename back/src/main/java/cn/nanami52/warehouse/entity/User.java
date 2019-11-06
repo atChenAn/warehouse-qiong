@@ -3,38 +3,30 @@ package cn.nanami52.warehouse.entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel("用户数据类型")
+@ApiModel("用户实体类")
 public class User {
-    @ApiModelProperty("用户ID")
-    private String id;
+    @ApiModelProperty("用户id")
+    private Long id;
     @ApiModelProperty("用户名")
     private String username;
+    @ApiModelProperty("用户密码")
+    private String password;
     @ApiModelProperty("用户权限")
-    private String userAuth;
+    private Integer userAuth;
     @ApiModelProperty("用户昵称")
     private String nickName;
-    @ApiModelProperty("创建时间")
-    private String createTime;
-    @ApiModelProperty("当前账户状态")
-    private String status;
+    @ApiModelProperty("创建时间戳")
+    private Long createTime;
+    @ApiModelProperty("账户状态")
+    private Integer status;
+    @ApiModelProperty("逻辑删除")
+    private Byte isDel;
 
-    public User() {
-    }
-
-    public User(String id, String username, String userAuth, String nickName, String createTime, String status) {
-        this.id = id;
-        this.username = username;
-        this.userAuth = userAuth;
-        this.nickName = nickName;
-        this.createTime = createTime;
-        this.status = status;
-    }
-
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,14 +35,22 @@ public class User {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username == null ? null : username.trim();
     }
 
-    public String getUserAuth() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
+
+    public Integer getUserAuth() {
         return userAuth;
     }
 
-    public void setUserAuth(String userAuth) {
+    public void setUserAuth(Integer userAuth) {
         this.userAuth = userAuth;
     }
 
@@ -59,22 +59,30 @@ public class User {
     }
 
     public void setNickName(String nickName) {
-        this.nickName = nickName;
+        this.nickName = nickName == null ? null : nickName.trim();
     }
 
-    public String getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Byte getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(Byte isDel) {
+        this.isDel = isDel;
     }
 }

@@ -10,6 +10,7 @@ import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,10 +30,26 @@ public class UserController {
 
         PageHelper.startPage(params.getPageNo(), params.getPageSize());
         // 通过参数查询用户列表即可
-        User user = new User(params.getId(), params.getUsername(), null, params.getNickName(), null, null);
-        List<User> users = this.userService.query(user);
+        // User user = new User(params.getId(), params.getUsername(), null, params.getNickName(), null, null);
+        List<User> users = this.userService.query(new User());
         try {
             return CommonUtils.toJson(users);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "对象序列化失败！";
+        }
+    }
+
+    @GetMapping("/user/{id}")
+    @ApiOperation(value = "获取用户详细信息", notes = "获取用户详细信息", response = User.class)
+    public String get(@ApiParam("用户id") @PathVariable("id") Long id) {
+
+        // 通过参数查询用户列表即可
+        User user = new User();
+        user.setId(id);
+        User user1 = this.userService.queryOne(user);
+        try {
+            return CommonUtils.toJson(user1);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "对象序列化失败！";
