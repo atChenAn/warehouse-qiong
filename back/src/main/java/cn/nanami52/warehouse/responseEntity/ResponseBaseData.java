@@ -12,6 +12,12 @@ public class ResponseBaseData {
     @ApiModelProperty("分页信息")
     private PageInfo meta;
 
+    public ResponseBaseData() {
+        this.meta = new PageInfo();
+        this.meta.setPageNo(1);
+        this.meta.setPageSize(10);
+    }
+
     public Object getData() {
         return data;
     }

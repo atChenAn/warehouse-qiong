@@ -1,5 +1,6 @@
 package cn.nanami52.warehouse.utils;
 
+import cn.nanami52.warehouse.responseEntity.PageInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -19,6 +20,15 @@ final public class CommonUtils {
      */
     public static String toJson(Object obj) throws JsonProcessingException {
         return CommonUtils.objectMapp.writeValueAsString(obj);
+    }
+
+    public static PageInfo convetPageInfo(com.github.pagehelper.PageInfo pageInfoData) {
+        PageInfo pageInfo = new PageInfo();
+        pageInfo.setPageNo(pageInfoData.getPageNum());
+        pageInfo.setPageSize(pageInfoData.getPageSize());
+        pageInfo.setCount(pageInfoData.getTotal());
+        pageInfo.setPageCount(pageInfoData.getPages());
+        return pageInfo;
     }
 
 }

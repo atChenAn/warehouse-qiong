@@ -1,5 +1,6 @@
 package cn.nanami52.warehouse.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -9,7 +10,7 @@ public class User {
     private String id;
     @ApiModelProperty("用户名")
     private String username;
-    @ApiModelProperty("用户密码")
+    @JsonIgnore
     private String password;
     @ApiModelProperty("用户权限[保留字段]")
     private Integer userAuth;
@@ -21,6 +22,10 @@ public class User {
     private Integer status;
     @ApiModelProperty("逻辑删除：1 删除 0 正常")
     private Byte isDel;
+    @ApiModelProperty("用户组ID")
+    private String groupId;
+    @ApiModelProperty("用户组名")
+    private String groupName;
 
     public User() {
     }
@@ -41,6 +46,22 @@ public class User {
         this.createTime = createTime;
         this.status = status;
         this.isDel = isDel;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public String getId() {

@@ -10,7 +10,7 @@ public class PageInfo {
     @ApiModelProperty("当前页容量")
     private Integer pageSize;
     @ApiModelProperty("总记录数")
-    private Integer count;
+    private Long count;
     @ApiModelProperty("总页数")
     private Integer pageCount;
 
@@ -30,11 +30,11 @@ public class PageInfo {
         this.pageSize = pageSize;
     }
 
-    public Integer getCount() {
+    public Long getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(Long count) {
         this.count = count;
     }
 

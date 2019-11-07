@@ -1,16 +1,22 @@
 package cn.nanami52.warehouse.service;
 
 import cn.nanami52.warehouse.dao.UserAuthMapper;
+import cn.nanami52.warehouse.dao.UserGroupMapper;
 import cn.nanami52.warehouse.dao.UserMapper;
 import cn.nanami52.warehouse.entity.User;
 import cn.nanami52.warehouse.entity.UserAuth;
 import cn.nanami52.warehouse.entity.UserGroup;
 import cn.nanami52.warehouse.exception.StandardError;
 import cn.nanami52.warehouse.requestEntity.RequestUserAddPost;
+import cn.nanami52.warehouse.requestEntity.RequestUserListGet;
 import cn.nanami52.warehouse.responseEntity.ResponseError;
 import cn.nanami52.warehouse.responseEntity.ResponseUserGet;
+import cn.nanami52.warehouse.responseEntity.ResponseUserListGet;
+import cn.nanami52.warehouse.utils.CommonUtils;
 import cn.nanami52.warehouse.utils.EncryptionUtils;
 import cn.nanami52.warehouse.utils.IdUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -25,6 +31,8 @@ public class UserService implements BaseService {
     private UserMapper userMapper;
     @Autowired
     private UserAuthMapper userAuthMapper;
+    @Autowired
+    private UserGroupMapper userGroupMapper;
 
     public User add(RequestUserAddPost data) throws Exception {
         String[] groupIds = data.getUserGroup().split(",");
@@ -71,13 +79,21 @@ public class UserService implements BaseService {
     }
 
 
-    public List<User> query(User data) {
-        return new ArrayList<>();
+    public ResponseUserListGet query(RequestUserListGet params) {
+        PageHelper.startPage(params.getPageNo(), params.getPageSize());
+        List<User> users = this.userMapper.select(params);
+        PageInfo<User> userPageInfo = new PageInfo<User>(users);
+        cn.nanami52.warehouse.responseEntity.PageInfo pageInfo = CommonUtils.convetPageInfo(userPageInfo);
+        ResponseUserListGet responseUserListGet = new ResponseUserListGet();
+        responseUserListGet.setMeta(pageInfo);
+        responseUserListGet.setData(users);
+        return responseUserListGet;
     }
 
 
     public ResponseUserGet queryOne(String id) throws StandardError {
         User user = this.userMapper.selectByPrimaryKey(id);
+        user.setPassword(null);
         if (null == user) {
             throw new StandardError("未查询到用户信息");
         }
@@ -94,5 +110,9 @@ public class UserService implements BaseService {
                 userAuths);
 
         return responseUserGet;
+    }
+
+    public UserGroup[] getUserGroup() {
+        return this.userGroupMapper.selectAll();
     }
 }

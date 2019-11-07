@@ -1,8 +1,7 @@
 package cn.nanami52.warehouse.controller;
 
 import cn.nanami52.warehouse.entity.User;
-import cn.nanami52.warehouse.exception.NoAuthException;
-import cn.nanami52.warehouse.exception.NoLoginException;
+import cn.nanami52.warehouse.entity.UserGroup;
 import cn.nanami52.warehouse.exception.StandardError;
 import cn.nanami52.warehouse.myEnum.HttpResponseCode;
 import cn.nanami52.warehouse.requestEntity.RequestUserListGet;
@@ -15,7 +14,6 @@ import cn.nanami52.warehouse.responseEntity.ResponseUserListGet;
 import cn.nanami52.warehouse.service.UserService;
 import cn.nanami52.warehouse.utils.CommonUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,21 +33,13 @@ public class UserController {
 
     @GetMapping("/list")
     @ApiOperation(value = "获取用户列表信息", notes = "获取用户列表信息", response = ResponseUserListGet.class)
-    public String get(RequestUserListGet params) {
-
-        PageHelper.startPage(params.getPageNo(), params.getPageSize());
-        List<User> users = this.userService.query(new User());
-        try {
-            return CommonUtils.toJson(users);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return "对象序列化失败！";
-        }
+    public ResponseUserListGet get(RequestUserListGet params) {
+        return this.userService.query(params);
     }
 
     @GetMapping("/get/{id}")
     @ApiOperation(value = "获取用户详细信息", notes = "获取用户详细信息", response = ResponseUserGet.class)
-    public ResponseUserGet get(@ApiParam("用户id") @PathVariable("id") String id) throws StandardError {
+    public ResponseUserGet get(@ApiParam(value = "用户id", required = true) @PathVariable("id") String id) throws StandardError {
         return this.userService.queryOne(id);
     }
 
@@ -77,7 +67,7 @@ public class UserController {
             notes = "修改用户的相关信息，id必传",
             response = ResponseBaseData.class
     )
-    public String update(@ApiParam("用户id") @PathVariable("id") String id,
+    public String update(@ApiParam(value = "用户id", required = true) @PathVariable("id") String id,
                          @ApiParam("用户信息") @RequestBody RequestUserUpdatePatch user) {
         return "";
     }
@@ -100,9 +90,9 @@ public class UserController {
     @GetMapping("/group/list")
     @ApiOperation(value = "获取用户组",
             notes = "获取用户组",
-            response = ResponseBaseData.class
+            response = UserGroup[].class
     )
-    public String groupList() {
-        return "";
+    public UserGroup[] groupList() {
+        return this.userService.getUserGroup();
     }
 }
