@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel("用户实体类")
 public class User {
     @ApiModelProperty("用户id")
-    private Long id;
+    private String id;
     @ApiModelProperty("用户名")
     private String username;
     @ApiModelProperty("用户密码")
@@ -21,22 +21,33 @@ public class User {
     private Integer status;
     @ApiModelProperty("逻辑删除：1 删除 0 正常")
     private Byte isDel;
-    @ApiModelProperty("用户组id（多用户组逗号分隔）")
-    private String userGroup;
 
-    public String getUserGroup() {
-        return userGroup;
+    public User() {
     }
 
-    public void setUserGroup(String userGroup) {
-        this.userGroup = userGroup;
+    public User(String username, String password, String nickName, Integer status) {
+        this.username = username;
+        this.password = password;
+        this.nickName = nickName;
+        this.status = status;
     }
 
-    public Long getId() {
+    public User(String id, String username, String password, Integer userAuth, String nickName, Long createTime, Integer status, Byte isDel) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.userAuth = userAuth;
+        this.nickName = nickName;
+        this.createTime = createTime;
+        this.status = status;
+        this.isDel = isDel;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

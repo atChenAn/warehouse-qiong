@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.nanami52.warehouse.dao.UserAuthMapper">
+    <resultMap id="BaseResultMap" type="cn.nanami52.warehouse.entity.UserAuth">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="userId" property="userid" jdbcType="VARCHAR"/>
+        <result column="groupId" property="groupid" jdbcType="VARCHAR"/>
+        <result column="groupName" property="groupName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, userId, groupId
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from user_auth
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user_auth
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="cn.nanami52.warehouse.entity.UserAuth">
+    insert into user_auth (id, userId, groupId
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{groupid,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="cn.nanami52.warehouse.entity.UserAuth">
+        insert into user_auth
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userid != null">
+                userId,
+            </if>
+            <if test="groupid != null">
+                groupId,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="userid != null">
+                #{userid,jdbcType=VARCHAR},
+            </if>
+            <if test="groupid != null">
+                #{groupid,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.nanami52.warehouse.entity.UserAuth">
+        update user_auth
+        <set>
+            <if test="userid != null">
+                userId = #{userid,jdbcType=VARCHAR},
+            </if>
+            <if test="groupid != null">
+                groupId = #{groupid,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.nanami52.warehouse.entity.UserAuth">
+    update user_auth
+    set userId = #{userid,jdbcType=VARCHAR},
+      groupId = #{groupid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <delete id="deleteByUserId" parameterType="java.lang.String">
+        delete from user_auth where userId=#{userId}
+    </delete>
+    <select id="selectByUserId" parameterType="String" resultMap="BaseResultMap">
+        SELECT
+            user_auth.id,
+            user_auth.groupId as groupid,
+            user_auth.userId as userid,
+            user_group.group_name as groupName
+        FROM
+            user_auth
+            LEFT JOIN user_group ON user_auth.groupId = user_group.id
+         where user_auth.userId = #{userId}
+    </select>
+</mapper>

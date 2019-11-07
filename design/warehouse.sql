@@ -1,12 +1,16 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2019/11/6 14:32:35                           */
+/* Created on:     2019/11/7 10:37:07                           */
 /*==============================================================*/
 
 
 drop table if exists bom_code;
 
+drop table if exists log;
+
 drop table if exists user;
+
+drop table if exists user_auth;
 
 drop table if exists user_group;
 
@@ -32,6 +36,28 @@ create table bom_code
 alter table bom_code comment '物料编码表';
 
 /*==============================================================*/
+/* Table: log                                                   */
+/*==============================================================*/
+create table log
+(
+   id                   varchar(50) not null,
+   type                 int comment '1、添加
+            2、修改
+            3、查询
+            4、删除
+            5、导入
+            6、其他',
+   user_Id              varchar(50),
+   createTime           int,
+   status               int comment '1、成功
+            2、失败',
+   description          text,
+   primary key (id)
+);
+
+alter table log comment '日志记录';
+
+/*==============================================================*/
 /* Table: user                                                  */
 /*==============================================================*/
 create table user
@@ -53,6 +79,19 @@ create table user
 );
 
 alter table user comment '用户表，不包含其他附属信息';
+
+/*==============================================================*/
+/* Table: user_auth                                             */
+/*==============================================================*/
+create table user_auth
+(
+   id                   varchar(50) not null,
+   userId               varchar(50),
+   groupId              varchar(50),
+   primary key (id)
+);
+
+alter table user_auth comment '用户组关联表';
 
 /*==============================================================*/
 /* Table: user_group                                            */

@@ -35,4 +35,5 @@ public class ResponseBaseData {
     public void setMeta(PageInfo meta) {
         this.meta = meta;
     }
+
 }

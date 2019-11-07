@@ -32,3 +32,6 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+
+custom:
+  passwordSalt: warehouse@@!~88__*sun

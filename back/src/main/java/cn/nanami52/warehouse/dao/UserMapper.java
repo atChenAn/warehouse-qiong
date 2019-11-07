@@ -3,13 +3,13 @@ package cn.nanami52.warehouse.dao;
 import cn.nanami52.warehouse.entity.User;
 
 public interface UserMapper {
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(String id);
 
     int insert(User record);
 
     int insertSelective(User record);
 
-    User selectByPrimaryKey(Long id);
+    User selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(User record);
 
