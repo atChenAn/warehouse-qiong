@@ -4,6 +4,8 @@ import cn.nanami52.warehouse.responseEntity.PageInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.Map;
+
 final public class CommonUtils {
 
     private static final ObjectMapper objectMapp = new ObjectMapper();
@@ -20,6 +22,24 @@ final public class CommonUtils {
      */
     public static String toJson(Object obj) throws JsonProcessingException {
         return CommonUtils.objectMapp.writeValueAsString(obj);
+    }
+
+    public static Object jsonToObj(String data, Class<?> clazz) {
+        try {
+            return new ObjectMapper().readValue(data, clazz);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Map<String, String> jsonToMap(String data) {
+        try {
+            return CommonUtils.objectMapp.readValue(data, Map.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static PageInfo convetPageInfo(com.github.pagehelper.PageInfo pageInfoData) {

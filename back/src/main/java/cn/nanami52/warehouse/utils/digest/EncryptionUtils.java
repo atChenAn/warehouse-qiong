@@ -1,4 +1,4 @@
-package cn.nanami52.warehouse.utils;
+package cn.nanami52.warehouse.utils.digest;
 
 import org.springframework.beans.factory.annotation.Value;
 
@@ -28,4 +28,6 @@ public class EncryptionUtils {
         md5.update(data.getBytes());
         return new BigInteger(1, md5.digest()).toString(16);
     }
+
+
 }

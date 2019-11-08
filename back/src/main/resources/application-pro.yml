@@ -8,16 +8,37 @@ logging:
   level:
     root: error
 
-
 debug: false
 
 spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/warehouse?characterEncoding=UTF-8&amp;characterSetResults=UTF-8&amp;serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/warehouse?characterEncoding=UTF-8&amp;characterSetResults=UTF-8&amp;serverTimezone=UTC&amp;verifyServerCertificate=false
     driver-class-name: com.mysql.jdbc.Driver
+    dbcp2:
+      initial-size: 5
+      min-idle: 5
+      max-wait-millis: 200
+      max-total: 10
+    type: org.apache.commons.dbcp2.BasicDataSource
+  jackson:
+    default-property-inclusion: non_null
 
-# Mybatis 实体包扫描配置
+
 mybatis:
   type-aliases-package: cn.nanami52.warehouse.entity
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+custom:
+  # 用户密码盐
+  passwordSalt: warehouse@@!~88__*sun
+  # 登陆token生成时AES key
+  tokenAESKey: key_@@!<token__*
+  # 登录后token失效时长
+  loginTimeOut: 86400

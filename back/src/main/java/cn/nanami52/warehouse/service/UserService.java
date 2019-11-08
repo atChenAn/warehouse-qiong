@@ -7,13 +7,13 @@ import cn.nanami52.warehouse.entity.User;
 import cn.nanami52.warehouse.entity.UserAuth;
 import cn.nanami52.warehouse.entity.UserGroup;
 import cn.nanami52.warehouse.exception.StandardError;
+import cn.nanami52.warehouse.requestEntity.RequestLoginPost;
 import cn.nanami52.warehouse.requestEntity.RequestUserAddPost;
 import cn.nanami52.warehouse.requestEntity.RequestUserListGet;
-import cn.nanami52.warehouse.responseEntity.ResponseError;
 import cn.nanami52.warehouse.responseEntity.ResponseUserGet;
 import cn.nanami52.warehouse.responseEntity.ResponseUserListGet;
 import cn.nanami52.warehouse.utils.CommonUtils;
-import cn.nanami52.warehouse.utils.EncryptionUtils;
+import cn.nanami52.warehouse.utils.digest.EncryptionUtils;
 import cn.nanami52.warehouse.utils.IdUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -88,6 +87,10 @@ public class UserService implements BaseService {
         responseUserListGet.setMeta(pageInfo);
         responseUserListGet.setData(users);
         return responseUserListGet;
+    }
+
+    public User checkLogin(RequestLoginPost params) {
+        return this.userMapper.checkLogin(params.getUsername(), EncryptionUtils.encodePasswordHash(params.getPassword()));
     }
 
 

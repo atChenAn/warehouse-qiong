@@ -161,4 +161,7 @@
         GROUP BY
         `user`.id
     </select>
+    <select id="checkLogin" resultMap="BaseResultMap">
+        select * from user where username=#{username} and password=#{password}
+    </select>
 </mapper>

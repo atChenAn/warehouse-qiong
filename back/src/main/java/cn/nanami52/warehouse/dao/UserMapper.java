@@ -19,4 +19,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     List<User> select(RequestUserListGet params);
+
+    User checkLogin(String username, String password);
 }

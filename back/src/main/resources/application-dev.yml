@@ -36,4 +36,9 @@ pagehelper:
   params: count=countSql
 
 custom:
+  # 用户密码盐
   passwordSalt: warehouse@@!~88__*sun
+  # 登陆token生成时AES key
+  tokenAESKey: key_@@!<token__*
+  # 登录后token失效时长
+  loginTimeOut: 86400

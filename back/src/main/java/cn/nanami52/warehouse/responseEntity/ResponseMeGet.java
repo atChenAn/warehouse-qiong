@@ -11,7 +11,7 @@ public class ResponseMeGet {
     private String userName;
     @ApiModelProperty("昵称")
     private String nickName;
-    @ApiModelProperty("用户状态")
+    @ApiModelProperty("用户状态:  0、正常 1、受限 2、冻结")
     private Integer state;
 
     public String getId() {

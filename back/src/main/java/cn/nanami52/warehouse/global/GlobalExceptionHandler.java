@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.UnexpectedTypeException;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
