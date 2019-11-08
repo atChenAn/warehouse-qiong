@@ -90,7 +90,8 @@ public class UserService implements BaseService {
     }
 
     public User checkLogin(RequestLoginPost params) {
-        return this.userMapper.checkLogin(params.getUsername(), EncryptionUtils.encodePasswordHash(params.getPassword()));
+        String hash = EncryptionUtils.encodePasswordHash(params.getPassword());
+        return this.userMapper.checkLogin(params.getUsername(), hash);
     }
 
 

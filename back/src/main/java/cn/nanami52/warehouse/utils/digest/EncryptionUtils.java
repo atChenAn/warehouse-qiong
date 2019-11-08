@@ -1,15 +1,21 @@
 package cn.nanami52.warehouse.utils.digest;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+@Component
 public class EncryptionUtils {
 
-    @Value("${custom.passwordSalt}")
     private static String passwordSalt;
+
+    @Value("${custom.passwordSalt}")
+    public void setPasswordSalt(String passwordSalt) {
+        EncryptionUtils.passwordSalt = passwordSalt;
+    }
 
     private EncryptionUtils() {
     }
