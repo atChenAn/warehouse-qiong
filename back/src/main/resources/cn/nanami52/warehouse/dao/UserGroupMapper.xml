@@ -106,4 +106,14 @@
     <select id="selectAll" resultMap="BaseResultMap">
     select * from user_group
   </select>
+    <select id="getUserGroupByUserId" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+        user_auth.id,
+        user_auth.userId,
+        user_auth.groupId,
+        user_group.group_name
+        FROM
+        user_auth
+        LEFT JOIN user_group ON user_auth.groupId = user_group.id
+    </select>
 </mapper>

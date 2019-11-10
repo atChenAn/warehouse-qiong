@@ -15,6 +15,15 @@ public class UserAuth {
     @ApiModelProperty("关联的用户用户组名称")
     private String groupName;
 
+    public UserAuth() {
+    }
+
+    public UserAuth(String id, String userid, String groupid) {
+        this.id = id;
+        this.userid = userid;
+        this.groupid = groupid;
+    }
+
     public String getGroupName() {
         return groupName;
     }

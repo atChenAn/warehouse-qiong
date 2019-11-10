@@ -33,14 +33,16 @@ public class LoginController {
 
     @PostMapping("/login")
     @ApiOperation(value = "登陆", notes = "登陆操作，取得用户信息，以及token", response = ResponseLoginPost.class)
-    public Object login(@ApiParam("用户登陆信息") @RequestBody RequestLoginPost parma, HttpServletResponse response) {
+    public Object login(@ApiParam("用户登陆信息") @RequestBody RequestLoginPost parma, HttpServletResponse response) throws StandardError {
         // 查一下用户名密码，生成token写入cookie
         User user = this.userService.checkLogin(parma);
         if (null != user) {
-            response.addCookie(new Cookie("Authorization", TokenUtils.createUserToken(user, loginTimeOut)));
+            Cookie authorization = new Cookie("Authorization", TokenUtils.createUserToken(user, loginTimeOut));
+            authorization.setMaxAge(loginTimeOut);
+            response.addCookie(authorization);
             return user;
         } else {
-            return new ResponseError(500, "账号或密码错误");
+            throw new StandardError("账号或密码错误");
         }
     }
 
@@ -56,6 +58,7 @@ public class LoginController {
                     Map<String, String> userMap = TokenUtils.resolveToken(value);
                     String id = userMap.get("id");
                     ResponseUserGet responseUserGet = this.userService.queryOne(id);
+                    // this.userService.getUserGroup()
                     ResponseMeGet responseMeGet = new ResponseMeGet();
                     responseMeGet.setId(responseUserGet.getId());
                     responseMeGet.setNickName(responseUserGet.getNickName());

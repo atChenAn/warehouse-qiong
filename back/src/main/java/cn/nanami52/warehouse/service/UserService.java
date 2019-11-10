@@ -74,7 +74,19 @@ public class UserService implements BaseService {
 
 
     public int update(User data) {
-        return 0;
+        // 更新主表信息
+        data.setPassword(EncryptionUtils.encodePasswordHash(data.getPassword()));
+        int updateRows = this.userMapper.updateByPrimaryKeySelective(data);
+        // 删除用户组关联记录
+        this.userAuthMapper.deleteByUserId(data.getId());
+        // 插入新的关联记录
+        String[] groupIds = data.getGroupId().split(",");
+        for (String groupId :
+                groupIds) {
+            UserAuth userAuth = new UserAuth(IdUtils.generateId(), data.getId(), groupId);
+            this.userAuthMapper.insert(userAuth);
+        }
+        return updateRows;
     }
 
 
@@ -114,6 +126,10 @@ public class UserService implements BaseService {
                 userAuths);
 
         return responseUserGet;
+    }
+
+    public UserGroup[] getUserGroupByUserId(String userId) {
+        return this.userGroupMapper.getUserGroupByUserId(userId);
     }
 
     public UserGroup[] getUserGroup() {

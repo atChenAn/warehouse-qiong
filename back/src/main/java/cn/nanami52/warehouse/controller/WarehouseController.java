@@ -31,6 +31,12 @@ public class WarehouseController {
         return "";
     }
 
+    @PostMapping("/add")
+    @ApiOperation(value = "库存盘存单添加", notes = "添加库存BOM盘存与PM数据", response = ResponseBaseData.class)
+    public String addWarehouse(@ApiParam(value = "BOM盘存与PM数据", required = true) @RequestParam("file") MultipartFile file) {
+        return "";
+    }
+
     @PostMapping("/import")
     @ApiOperation(value = "库存盘存单导入", notes = "导入库存BOM盘存与PM数据，注意：这将覆盖已有的现存数据，请谨慎操作", response = ResponseBaseData.class)
     public String importWarehouse(@ApiParam(value = "BOM盘存与PM Excel", required = true) @RequestParam("file") MultipartFile file) {

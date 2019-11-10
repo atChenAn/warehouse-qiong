@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.nanami52.warehouse.dao.LogMapper" >
-  <resultMap id="BaseResultMap" type="cn.nanami52.warehouse.entity.Log" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="INTEGER" />
-    <result column="user_Id" property="userId" jdbcType="VARCHAR" />
-    <result column="createTime" property="createtime" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="cn.nanami52.warehouse.entity.Log" extends="BaseResultMap" >
-    <result column="description" property="description" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="cn.nanami52.warehouse.dao.LogMapper">
+    <resultMap id="BaseResultMap" type="cn.nanami52.warehouse.entity.Log">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="user_Id" property="userId" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createtime" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="nick_name" property="username" jdbcType="INTEGER"/>
+        <result column="username" property="nickName" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="cn.nanami52.warehouse.entity.Log" extends="BaseResultMap">
+        <result column="description" property="description" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, type, user_Id, createTime, status
   </sql>
-  <sql id="Blob_Column_List" >
+    <sql id="Blob_Column_List">
     description
   </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from log
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from log
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from log
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="cn.nanami52.warehouse.entity.Log" >
+    <insert id="insert" parameterType="cn.nanami52.warehouse.entity.Log">
     insert into log (id, type, user_Id, 
       createTime, status, description
       )
@@ -37,71 +39,71 @@
       #{createtime,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.nanami52.warehouse.entity.Log" >
-    insert into log
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="type != null" >
-        type,
-      </if>
-      <if test="userId != null" >
-        user_Id,
-      </if>
-      <if test="createtime != null" >
-        createTime,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="description != null" >
-        description,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=INTEGER},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="description != null" >
-        #{description,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.nanami52.warehouse.entity.Log" >
-    update log
-    <set >
-      <if test="type != null" >
-        type = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null" >
-        user_Id = #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null" >
-        createTime = #{createtime,jdbcType=INTEGER},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="description != null" >
-        description = #{description,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.nanami52.warehouse.entity.Log" >
+    <insert id="insertSelective" parameterType="cn.nanami52.warehouse.entity.Log">
+        insert into log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="userId != null">
+                user_Id,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.nanami52.warehouse.entity.Log">
+        update log
+        <set>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                user_Id = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.nanami52.warehouse.entity.Log">
     update log
     set type = #{type,jdbcType=INTEGER},
       user_Id = #{userId,jdbcType=VARCHAR},
@@ -110,7 +112,7 @@
       description = #{description,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.nanami52.warehouse.entity.Log" >
+    <update id="updateByPrimaryKey" parameterType="cn.nanami52.warehouse.entity.Log">
     update log
     set type = #{type,jdbcType=INTEGER},
       user_Id = #{userId,jdbcType=VARCHAR},
@@ -118,4 +120,36 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+    <select id="query" resultMap="BaseResultMap" parameterType="Map">
+        SELECT
+        `log`.`id` AS `id`,
+        `log`.`type` AS `type`,
+        `log`.`user_Id` AS `user_Id`,
+        `log`.`createTime` AS `createTime`,
+        `log`.`status` AS `status`,
+        `log`.`description` AS `description`,
+        `user`.`nick_name` AS `nick_name`,
+        `user`.`username` AS `username`
+        FROM
+        (
+        `log`
+        JOIN `user` ON (
+        (
+        `log`.`user_Id` = `user`.`id`
+        )
+        )
+        )
+        WHERE
+        1=1
+        <if test="null!=nickname">AND nick_name LIKE CONCAT("%", #{nickname}, "%")</if>
+        <if test="null!=username">AND username LIKE CONCAT("%", #{username}, "%")</if>
+        <if test="null!=createTimeStart">AND createTime &gt; #{createTimeStart}</if>
+        <if test="null!=createTimeEnd">AND createTime &lt; #{createTimeEnd}</if>
+        order by createTime desc
+    </select>
+    <delete id="clear">
+        delete from log where 1=1
+    </delete>
+
 </mapper>

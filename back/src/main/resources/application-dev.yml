@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /
+    context-path: /api
 logging:
   file:
     path: ./runtime.log
@@ -28,7 +28,6 @@ spring:
 
 mybatis:
   type-aliases-package: cn.nanami52.warehouse.entity
-
 pagehelper:
   helperDialect: mysql
   reasonable: true

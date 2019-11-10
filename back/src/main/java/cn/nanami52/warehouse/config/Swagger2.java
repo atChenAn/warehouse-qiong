@@ -1,17 +1,27 @@
 package cn.nanami52.warehouse.config;
 
+import com.sun.xml.internal.ws.api.policy.PolicyResolver;
 import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.paths.RelativePathProvider;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import javax.servlet.ServletContext;
+
+@Component
 @Configuration
 public class Swagger2 {
+
+    @Autowired
+    private ServletContext servletContext;
 
     @Bean
     public Docket createRestApi() {

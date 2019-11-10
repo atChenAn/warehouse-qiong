@@ -16,4 +16,6 @@ public interface UserGroupMapper {
     int updateByPrimaryKey(UserGroup record);
 
     UserGroup[] selectAll();
+
+    UserGroup[] getUserGroupByUserId(String userId);
 }

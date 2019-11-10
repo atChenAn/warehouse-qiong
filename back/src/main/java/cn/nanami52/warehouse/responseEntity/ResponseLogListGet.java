@@ -11,6 +11,12 @@ public class ResponseLogListGet extends ResponseBaseData {
     @ApiModelProperty("日志数据列表")
     private List<Log> data;
 
+
+    public ResponseLogListGet(List<Log> data, PageInfo pageInfo) {
+        this.data = data;
+        this.setMeta(pageInfo);
+    }
+
     @Override
     public List<Log> getData() {
         return data;

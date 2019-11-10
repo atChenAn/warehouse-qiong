@@ -2,6 +2,9 @@ package cn.nanami52.warehouse.dao;
 
 import cn.nanami52.warehouse.entity.Log;
 
+import java.util.List;
+import java.util.Map;
+
 public interface LogMapper {
     int deleteByPrimaryKey(String id);
 
@@ -16,4 +19,8 @@ public interface LogMapper {
     int updateByPrimaryKeyWithBLOBs(Log record);
 
     int updateByPrimaryKey(Log record);
+
+    List<Log> query(Map params);
+
+    int clear();
 }

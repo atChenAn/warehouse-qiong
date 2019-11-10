@@ -39,8 +39,13 @@ public class UserController {
 
     @GetMapping("/get/{id}")
     @ApiOperation(value = "获取用户详细信息", notes = "获取用户详细信息", response = ResponseUserGet.class)
+    @Validated
     public ResponseUserGet get(@ApiParam(value = "用户id", required = true) @PathVariable("id") String id) throws StandardError {
-        return this.userService.queryOne(id);
+        ResponseUserGet responseUserGet = this.userService.queryOne(id);
+        if (null != responseUserGet) {
+            return responseUserGet;
+        }
+        throw new StandardError("未找到相关用户信息");
     }
 
     @Transactional
@@ -52,7 +57,7 @@ public class UserController {
 
 
     @PostMapping("/import")
-    @ApiOperation(value = "批量导入用户列表",
+    @ApiOperation(value = "批量导入用户列表[暂未实现]",
             notes = "Excel批量导入用户列表，请按要求进行导入，如果存在无效数据，将导致该次导入全部失败",
             response = ResponseBaseData.class)
     public String imports(@ApiParam(value = "用户信息Excel", required = true) @RequestParam("file") MultipartFile file) {
@@ -67,9 +72,21 @@ public class UserController {
             notes = "修改用户的相关信息，id必传",
             response = ResponseBaseData.class
     )
-    public String update(@ApiParam(value = "用户id", required = true) @PathVariable("id") String id,
-                         @ApiParam("用户信息") @RequestBody RequestUserUpdatePatch user) {
-        return "";
+    public ResponseBaseData update(@ApiParam(value = "用户id", required = true) @PathVariable(value = "id", required = true) String id,
+                                   @ApiParam("用户信息") @RequestBody RequestUserUpdatePatch param) throws StandardError {
+        User user = new User();
+        user.setId(id);
+        user.setNickName(param.getNickName());
+        user.setPassword(param.getPassword());
+        user.setGroupId(param.getUserGroup());
+        user.setStatus(param.getStatus());
+        int updateRows = this.userService.update(user);
+        if (updateRows > 0) {
+            ResponseBaseData responseBaseData = new ResponseBaseData();
+            responseBaseData.setMessage("修改成功");
+            return responseBaseData;
+        }
+        throw new StandardError("修改用户信息失败，未找到相应的用户数据");
     }
 
     @DeleteMapping("/delete/{id}")

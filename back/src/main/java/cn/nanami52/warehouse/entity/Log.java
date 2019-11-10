@@ -22,6 +22,26 @@ public class Log {
     private Integer status;
     @ApiModelProperty("日志附加信息")
     private String description;
+    @ApiModelProperty("操作用户名")
+    private String username;
+    @ApiModelProperty("操作用户昵称")
+    private String nickName;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
     public String getId() {
         return id;
