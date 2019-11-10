@@ -1,8 +1,9 @@
 import React, { useMemo } from "react";
 import { Route, Router, Redirect, Switch } from "react-router";
 import { createBrowserHistory, History } from "history";
+import dva from "dva";
+import userModel from "@/model/user/user.model";
 import Login from "./app/Login/Login";
-import "./App.css";
 import Home from "./app/Home/Home";
 
 function renderRouter(history: History<any>) {
@@ -18,7 +19,7 @@ function renderRouter(history: History<any>) {
 
 const App: React.FC = () => {
   const history = useMemo(() => createBrowserHistory(), []);
-  const hasLogin = true;
+  const hasLogin = false;
   return hasLogin ? renderRouter(history) : <Login />;
 };
 
