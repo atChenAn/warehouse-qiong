@@ -1,26 +1,29 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Route, Router, Redirect, Switch } from "react-router";
-import { createBrowserHistory, History } from "history";
-import dva from "dva";
+import { Provider } from "react-redux";
+import stateContainer from "state-container";
 import userModel from "@/model/user/user.model";
 import Login from "./app/Login/Login";
 import Home from "./app/Home/Home";
 
-function renderRouter(history: History<any>) {
+stateContainer.injectModel(userModel);
+
+function renderRouter() {
   return (
-    <Router history={history}>
-      <Switch>
-        <Route path="/home" component={Home} />
-        <Redirect to="/home" />
-      </Switch>
-    </Router>
+    <Provider store={stateContainer._store}>
+      <Router history={stateContainer._history}>
+        <Switch>
+          <Route path="/home" component={Home} />
+          <Redirect to="/home" />
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 
 const App: React.FC = () => {
-  const history = useMemo(() => createBrowserHistory(), []);
   const hasLogin = false;
-  return hasLogin ? renderRouter(history) : <Login />;
+  return hasLogin ? renderRouter() : <Login />;
 };
 
 export default App;

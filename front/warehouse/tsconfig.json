@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    // 关闭any警告
+    "noImplicitAny": false,
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
