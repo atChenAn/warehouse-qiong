@@ -2,7 +2,22 @@ import axios from "axios";
 
 /* 添加响应拦截器 */
 
-const instance = axios.create();
+const instance = axios.create({
+  withCredentials: true
+});
+
+instance.interceptors.response.use(
+  function(response) {
+    // 在接收响应做些什么，例如跳转到登录页
+    console.log("响应拦截器：SUCCESS HOOK");
+    return response;
+  },
+  function(error) {
+    // 对响应错误做点什么
+    console.log("响应拦截器：FAILED HOOK " + error);
+    return Promise.reject(error);
+  }
+);
 
 function createAPI(baseURL) {
   return function(conf) {

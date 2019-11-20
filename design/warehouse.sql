@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : local
+ Source Server         : 192.168.7.106
  Source Server Type    : MySQL
- Source Server Version : 80012
- Source Host           : 127.0.0.1:3306
+ Source Server Version : 80018
+ Source Host           : 192.168.7.106:3306
  Source Schema         : warehouse
 
  Target Server Type    : MySQL
- Target Server Version : 80012
+ Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 07/11/2019 21:00:06
+ Date: 20/11/2019 22:28:35
 */
 
 SET NAMES utf8mb4;
@@ -59,8 +59,8 @@ CREATE TABLE `user`  (
   `status` int(11) NULL DEFAULT NULL COMMENT '用户状态：\r\n            0、正常\r\n            1、受限\r\n            2、冻结',
   `is_del` tinyint(4) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `AK_Key_2`(`username`) USING BTREE,
-  UNIQUE INDEX `username_uniq`(`username`) USING BTREE
+  UNIQUE INDEX `username_uniq`(`username`) USING BTREE,
+  INDEX `AK_Key_2`(`username`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表，不包含其他附属信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -137,6 +137,12 @@ CREATE TABLE `warehouse_detail`  (
   `is_del` tinyint(4) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '盘存明细表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- View structure for v_log
+-- ----------------------------
+DROP VIEW IF EXISTS `v_log`;
+CREATE ALGORITHM = UNDEFINED DEFINER = `root`@`%` SQL SECURITY DEFINER VIEW `v_log` AS select `log`.`id` AS `id`,`log`.`type` AS `type`,`log`.`user_Id` AS `user_Id`,`log`.`createTime` AS `createTime`,`log`.`status` AS `status`,`log`.`description` AS `description`,`user`.`nick_name` AS `nick_name`,`user`.`username` AS `username` from (`log` join `user` on((`log`.`user_Id` = `user`.`id`)));
 
 -- ----------------------------
 -- View structure for v_user
