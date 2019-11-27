@@ -1,6 +1,7 @@
 import { Model } from "dva";
 import produce from "immer";
 import { warehouse as API_WAREHOUSE } from "@/api";
+import { PopNotification } from "@/utils/popup";
 
 interface UserInfo {
   id: string;
@@ -32,11 +33,23 @@ export default {
     *login({ payload }, { put, call, select }) {
       try {
         yield call(API_WAREHOUSE.login_login_post, {
-          data: payload
+          data: payload.data
         });
 
         const { data } = yield call(API_WAREHOUSE.login_me_get, {});
-        console.log("user data:", data);
+        yield put({
+          type: "setUser",
+          payload: data
+        });
+        payload.callback && payload.callback();
+      } catch (error) {
+        console.log(error);
+        PopNotification.error(error.message);
+      }
+    },
+    *getMe({ payload }, { put, call, select }) {
+      try {
+        const { data } = yield call(API_WAREHOUSE.login_me_get, {});
         yield put({
           type: "setUser",
           payload: data

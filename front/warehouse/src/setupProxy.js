@@ -26,7 +26,7 @@ module.exports = function(app) {
     .use(
       "/api",
       proxy({
-        target: "http://localhost:8080",
+        target: "http://192.168.7.107:8086",
         changeOrigin: true
       })
     );

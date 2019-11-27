@@ -1,4 +1,7 @@
 import axios from "axios";
+import { PopNotification } from "@/utils/popup";
+import { get } from "lodash";
+import history from "@/utils/history";
 
 /* 添加响应拦截器 */
 
@@ -14,7 +17,31 @@ instance.interceptors.response.use(
   },
   function(error) {
     // 对响应错误做点什么
-    console.log("响应拦截器：FAILED HOOK " + error);
+    const responseStatus = error.response.status;
+    switch (responseStatus) {
+      case 400:
+        break;
+      case 401:
+        PopNotification.error("您尚未登录，或登录信息已失效，请重新登陆！");
+        history.push("/login");
+        break;
+      case 403:
+        PopNotification.error("对不起，您无权访问本页面！");
+        break;
+      case 404:
+        PopNotification.error("对不起，当前页面不存在！");
+        break;
+      case 500:
+        // 服务器通用错误，由应用本身接管
+        error.message = get(error.response, "data.message") || error.message;
+        break;
+      case 503:
+        PopNotification.error("服务器错误：" + error.message);
+        break;
+      default:
+        PopNotification.error("未知错误：" + error.message);
+    }
+
     return Promise.reject(error);
   }
 );

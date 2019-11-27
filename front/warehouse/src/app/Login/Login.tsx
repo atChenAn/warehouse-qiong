@@ -4,6 +4,7 @@ import stateContainer from "@/utils/stateContainer";
 import userModel from "@/model/user";
 import { UserDispatcher } from "@/model/user/user.actions";
 import bindActions from "@/utils/bindActions";
+import history from "@/utils/history";
 import { connect } from "react-redux";
 import {
   LoginWrapper,
@@ -13,6 +14,7 @@ import {
   Placeholder
 } from "./Style";
 import { FormComponentProps } from "antd/lib/form/Form";
+import { RouterProps } from "react-router";
 
 stateContainer.injectModel(userModel.model);
 
@@ -21,8 +23,6 @@ export interface Props extends FormComponentProps<any> {
 }
 
 function Login(props: Props) {
-  console.log(props);
-
   const {
     form: { getFieldDecorator, validateFields, getFieldsValue },
     userModel
@@ -33,7 +33,12 @@ function Login(props: Props) {
       if (!error) {
         const data = getFieldsValue();
         console.log(data);
-        userModel.login(data);
+        userModel.login({
+          data,
+          callback: () => {
+            history.push("/home");
+          }
+        });
       }
     });
   }, []);
