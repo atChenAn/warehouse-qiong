@@ -156,7 +156,7 @@
         )
         where 1=1
         <if test="id">and user_auth.userId=#{id}</if>
-        <if test="nickName">and nick_name=#{nickName}</if>
+        <if test="nickName">and nick_name like CONCAT('%',#{nickName},'%')</if>
         <if test="groupId">and groupId=#{groupId}</if>
         GROUP BY
         `user`.id

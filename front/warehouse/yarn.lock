@@ -3771,6 +3771,11 @@ decamelize@^2.0.0:
   dependencies:
     xregexp "4.0.0"
 
+decimal.js-light@^2.5.0:
+  version "2.5.0"
+  resolved "http://192.168.2.11:4873/decimal.js-light/-/decimal.js-light-2.5.0.tgz#ca7faf504c799326df94b0ab920424fdfc125348"
+  integrity sha1-yn+vUEx5kybflLCrkgQk/fwSU0g=
+
 decode-uri-component@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
@@ -5232,6 +5237,14 @@ globby@^6.1.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
+gmsoft-tools@^1.1.1:
+  version "1.1.1"
+  resolved "http://192.168.2.11:4873/gmsoft-tools/-/gmsoft-tools-1.1.1.tgz#1459743df71fcaa9e1eed322e261ea234b8799aa"
+  integrity sha1-FFl0Pfcfyqnh7tMi4mHqI0uHmao=
+  dependencies:
+    decimal.js-light "^2.5.0"
+    ua-parser-js "^0.7.19"
+
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   version "4.1.15"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.15.tgz#ffb703e1066e8a0eeaa4c8b80ba9253eeefbfb00"
@@ -5384,6 +5397,11 @@ hex-color-regex@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
+
+history-helper@1.0.2:
+  version "1.0.2"
+  resolved "http://192.168.2.11:4873/history-helper/-/history-helper-1.0.2.tgz#ddde882a657338ff101dbc935fb91a19cf657aac"
+  integrity sha1-3d6IKmVzOP8QHbyTX7kaGc9leqw=
 
 history@^4.10.1, history@^4.6.3, history@^4.7.2, history@^4.9.0:
   version "4.10.1"
@@ -10299,6 +10317,13 @@ schema-utils@^2.0.0, schema-utils@^2.0.1, schema-utils@^2.2.0:
     ajv "^6.10.2"
     ajv-keywords "^3.4.1"
 
+search-page@^1.7.1:
+  version "1.7.1"
+  resolved "http://192.168.2.11:4873/search-page/-/search-page-1.7.1.tgz#f00c4135e29468c91055a841725e6b4f8c02c99d"
+  integrity sha1-8AxBNeKUaMkQVahBcl5rT4wCyZ0=
+  dependencies:
+    history-helper "1.0.2"
+
 select-hose@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
@@ -11363,7 +11388,7 @@ typescript@3.7.2:
   resolved "https://registry.npm.taobao.org/typescript/download/typescript-3.7.2.tgz#27e489b95fa5909445e9fef5ee48d81697ad18fb"
   integrity sha1-J+SJuV+lkJRF6f717kjYFpetGPs=
 
-ua-parser-js@^0.7.18:
+ua-parser-js@^0.7.18, ua-parser-js@^0.7.19:
   version "0.7.20"
   resolved "https://registry.npm.taobao.org/ua-parser-js/download/ua-parser-js-0.7.20.tgz#7527178b82f6a62a0f243d1f94fd30e3e3c21098"
   integrity sha1-dScXi4L2pioPJD0flP0w4+PCEJg=
