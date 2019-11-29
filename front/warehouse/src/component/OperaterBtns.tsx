@@ -9,6 +9,11 @@ const MoreLink = styled.span`
 const LinkBtn = styled.div`
   display: inline-block;
 `;
+const RootLayout = styled.div`
+  button {
+    padding: 0;
+  }
+`;
 
 interface Props {
   children?: React.ReactNode;
@@ -44,7 +49,7 @@ export default function OperaterBtns(props: Props) {
   }
 
   return (
-    <div>
+    <RootLayout>
       {prevChild.map((child, index, arr) => (
         <React.Fragment key={gernerateId(Model.MIXTURE)}>
           <LinkBtn>{child}</LinkBtn>
@@ -65,6 +70,6 @@ export default function OperaterBtns(props: Props) {
           {/* eslint-enable */}
         </Dropdown>
       ) : null}
-    </div>
+    </RootLayout>
   );
 }

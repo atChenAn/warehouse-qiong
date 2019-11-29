@@ -41,18 +41,18 @@ export const menuConf: Menu[] = [
   },
   {
     title: "计划管理",
-    routePath: "/user",
+    routePath: "/plan",
     icon: "project",
     children: [
       {
         title: "新增计划",
-        routePath: "/user/add",
-        component: React.lazy(() => import("@/app/User/UserAdd/UserAdd"))
+        routePath: "/plan/add",
+        component: React.lazy(() => import("@/app/Plan/PlanAdd/PlanAdd"))
       },
       {
         title: "计划列表",
-        routePath: "/user/list",
-        component: React.lazy(() => import("@/app/User/UserList/UserList"))
+        routePath: "/plan/list",
+        component: React.lazy(() => import("@/app/Plan/PlanList/PlanList"))
       }
     ]
   },

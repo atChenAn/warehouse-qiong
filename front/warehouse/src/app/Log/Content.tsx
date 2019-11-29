@@ -4,15 +4,12 @@ import { Table, Button, Icon } from "antd";
 import { unix2Time } from "@/utils/commonUtils";
 import { LogItem } from "@/type/LogItem";
 import { AutoText } from "@/component/AutoText";
-import styled from "styled-components";
-import renderUtils from "./renderStatus.conf";
 import { PopNotification } from "@/utils/popup";
+import { ButtonGroupStyle } from "@/component/GlobalStyle/GlobalStyle";
+import renderUtils from "./renderStatus.conf";
 
 const { Column } = Table;
 const { renderOperateType, renderOperateStatus } = renderUtils;
-const ButtonGroup = styled.div`
-  margin-bottom: 10px;
-`;
 
 const Content = ({ data, forceUpdate, loading, filters }: ContentProps) => {
   const onClear = useCallback(() => {
@@ -21,12 +18,12 @@ const Content = ({ data, forceUpdate, loading, filters }: ContentProps) => {
 
   return (
     <>
-      <ButtonGroup>
+      <ButtonGroupStyle>
         <Button type="primary" onClick={onClear}>
           <Icon type="delete" />
           清除日志
         </Button>
-      </ButtonGroup>
+      </ButtonGroupStyle>
       <Table dataSource={data} rowKey="id" bordered pagination={false}>
         <Column
           width="15%"
@@ -36,11 +33,13 @@ const Content = ({ data, forceUpdate, loading, filters }: ContentProps) => {
         />
         <Column width="15%" key="nickName" title="姓名" dataIndex="nickName" />
         <Column
-          width="20%"
-          key="userState"
-          title="操作时间"
-          // TODO record.createtime
-          render={(_, record: LogItem) => unix2Time(1)}
+          width="35%"
+          key="description"
+          title="详细信息"
+          dataIndex="description"
+          render={(_, record: LogItem) => (
+            <AutoText>{record.description}</AutoText>
+          )}
         />
         <Column
           width="10%"
@@ -55,13 +54,11 @@ const Content = ({ data, forceUpdate, loading, filters }: ContentProps) => {
           render={(_, record) => renderOperateStatus(record)}
         />
         <Column
-          width="30%"
-          key="description"
-          title="详细信息"
-          dataIndex="description"
-          render={(_, record: LogItem) => (
-            <AutoText>{record.description}</AutoText>
-          )}
+          width="15%"
+          key="userState"
+          title="操作时间"
+          // TODO record.createtime
+          render={(_, record: LogItem) => unix2Time(1)}
         />
       </Table>
     </>
