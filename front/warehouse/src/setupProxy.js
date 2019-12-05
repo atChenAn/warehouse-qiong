@@ -1,7 +1,7 @@
 const proxy = require("http-proxy-middleware");
 
 // home | company 代理的目标平台
-const platform = "company";
+const platform = "home";
 
 let proxyConf = null;
 

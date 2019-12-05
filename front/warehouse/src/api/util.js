@@ -20,6 +20,10 @@ instance.interceptors.response.use(
     const responseStatus = error.response.status;
     switch (responseStatus) {
       case 400:
+        error.message =
+          get(error.response, "message") ||
+          get(error.response, "data.message") ||
+          error.message;
         break;
       case 401:
         PopNotification.error("您尚未登录，或登录信息已失效，请重新登陆！");

@@ -7,11 +7,11 @@ const userStatus: StatusMap[] = [
     statusText: "正常",
     statusType: StatusType.STATUS_UNDERWAY
   },
-  {
-    statusVal: 1,
-    statusText: "受限",
-    statusType: StatusType.STATUS_EXCEPTION
-  },
+  // {
+  //   statusVal: 1,
+  //   statusText: "受限",
+  //   statusType: StatusType.STATUS_EXCEPTION
+  // },
   {
     statusVal: 2,
     statusText: "冻结",

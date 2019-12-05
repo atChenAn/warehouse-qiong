@@ -88,10 +88,18 @@ export function renderRouter() {
 function registerRouter(menus: Menu) {
   return menus.children && menus.children.length > 0 ? (
     menus.children.map(menu => (
-      <Route path={menu.routePath} component={menu.component} />
+      <Route
+        key={menu.routePath}
+        path={menu.routePath}
+        component={menu.component}
+      />
     ))
   ) : (
-    <Route path={menus.routePath} component={menus.component} />
+    <Route
+      key={menus.routePath}
+      path={menus.routePath}
+      component={menus.component}
+    />
   );
 }
 
