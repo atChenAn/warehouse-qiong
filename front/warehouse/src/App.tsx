@@ -1,29 +1,32 @@
 import React from "react";
-import { Route, Router, Redirect, Switch } from "react-router";
+import zhCN from "antd/es/locale/zh_CN";
+import { ConfigProvider } from "antd";
 import { Provider } from "react-redux";
-import stateContainer from "state-container";
-import userModel from "@/model/user/user.model";
-import Login from "./app/Login/Login";
+import { Route, Router, Redirect, Switch } from "react-router";
+import moment from 'moment';
+import stateContainer from "@/utils/stateContainer";
+import history from "@/utils/history";
 import Home from "./app/Home/Home";
+import Login from "./app/Login/Login";
 
-stateContainer.injectModel(userModel);
+import 'moment/locale/zh-cn';
 
-function renderRouter() {
-  return (
-    <Provider store={stateContainer._store}>
-      <Router history={stateContainer._history}>
-        <Switch>
-          <Route path="/home" component={Home} />
-          <Redirect to="/home" />
-        </Switch>
-      </Router>
-    </Provider>
-  );
-}
+moment.locale('en');
 
 const App: React.FC = () => {
-  const hasLogin = false;
-  return hasLogin ? renderRouter() : <Login />;
+  return (
+    <ConfigProvider locale={zhCN}>
+      <Provider store={stateContainer._store}>
+        {/* {hasLogin ? renderRouter() : <Login />} */}
+        <Router history={history}>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Home />
+          </Switch>
+        </Router>
+      </Provider>
+    </ConfigProvider>
+  );
 };
 
 export default App;

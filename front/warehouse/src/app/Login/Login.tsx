@@ -1,8 +1,11 @@
 import React, { useCallback } from "react";
 import { Button, Form, Input, Icon } from "antd";
-import styled from "styled-components";
+import stateContainer from "@/utils/stateContainer";
+import userModel from "@/model/user";
+import { UserDispatcher } from "@/model/user/user.actions";
+import bindActions from "@/utils/bindActions";
+import history from "@/utils/history";
 import { connect } from "react-redux";
-
 import {
   LoginWrapper,
   LoginContent,
@@ -11,18 +14,31 @@ import {
   Placeholder
 } from "./Style";
 import { FormComponentProps } from "antd/lib/form/Form";
+import { RouterProps } from "react-router";
 
-export interface Props extends FormComponentProps<any> {}
+stateContainer.injectModel(userModel.model);
+
+export interface Props extends FormComponentProps<any> {
+  userModel: UserDispatcher;
+}
 
 function Login(props: Props) {
   const {
-    form: { getFieldDecorator, validateFields, getFieldsValue }
+    form: { getFieldDecorator, validateFields, getFieldsValue },
+    userModel
   } = props;
 
   const onLogin = useCallback(() => {
     validateFields(error => {
       if (!error) {
-        console.log(getFieldsValue());
+        const data = getFieldsValue();
+        console.log(data);
+        userModel.login({
+          data,
+          callback: () => {
+            history.push("/home");
+          }
+        });
       }
     });
   }, []);
@@ -69,4 +85,12 @@ function Login(props: Props) {
   );
 }
 
-export default Form.create()(Login);
+const mapStateToProps = ({ user }) => ({
+  user
+});
+const mapDispatcherToProps = bindActions(userModel.actions);
+
+export default connect(
+  mapStateToProps,
+  mapDispatcherToProps
+)(Form.create()(Login));

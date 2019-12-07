@@ -7,8 +7,8 @@
         <result column="user_Id" property="userId" jdbcType="VARCHAR"/>
         <result column="createTime" property="createtime" jdbcType="INTEGER"/>
         <result column="status" property="status" jdbcType="INTEGER"/>
-        <result column="nick_name" property="username" jdbcType="INTEGER"/>
-        <result column="username" property="nickName" jdbcType="INTEGER"/>
+        <result column="username" property="username" jdbcType="INTEGER"/>
+        <result column="nick_name" property="nickName" jdbcType="INTEGER"/>
     </resultMap>
     <resultMap id="ResultMapWithBLOBs" type="cn.nanami52.warehouse.entity.Log" extends="BaseResultMap">
         <result column="description" property="description" jdbcType="LONGVARCHAR"/>

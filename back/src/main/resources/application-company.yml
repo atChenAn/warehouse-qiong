@@ -13,8 +13,8 @@ debug: true
 spring:
   datasource:
     username: root
-    password: sweet
-    url: jdbc:mysql://192.168.7.107:3306/warehouse?characterEncoding=UTF-8&amp;characterSetResults=UTF-8&amp;serverTimezone=UTC&amp;verifyServerCertificate=false
+    password: sweet12369
+    url: jdbc:mysql://192.168.2.118:3306/warehouse?characterEncoding=UTF-8&amp;characterSetResults=UTF-8&amp;serverTimezone=UTC&amp;verifyServerCertificate=false
     driver-class-name: com.mysql.jdbc.Driver
     dbcp2:
       initial-size: 5
