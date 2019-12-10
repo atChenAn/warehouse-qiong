@@ -1,11 +1,12 @@
 import React, { useCallback } from "react";
 import { ContentProps } from "search-page";
-import { Table, Button, Icon } from "antd";
+import { Table, Button, Icon, Popconfirm } from "antd";
 import OperaterBtns from "@/component/OperaterBtns";
 import { UserItem } from "@/type/UserItem";
 import renderUtils from "./renderStatus.conf";
 import { PopNotification } from "@/utils/popup";
 import { ButtonGroupStyle } from "@/component/GlobalStyle/GlobalStyle";
+import { warehouse } from "@/api";
 
 const { Column } = Table;
 const { renderStatus } = renderUtils;
@@ -18,6 +19,34 @@ const Content = ({ data, forceUpdate, loading, filters }: ContentProps) => {
   const onDownload = useCallback(() => {
     window.open("https://www.baidu.com");
   }, []);
+
+  const onEdit = (id: string) => {
+    console.log(id);
+  };
+  const onSwitch = (record: UserItem) => {
+    warehouse
+      .user_update_id_patch({
+        path: { id: record.id },
+        data: { status: +record.status === 0 ? 2 : 0 }
+      })
+      .then(data => {
+        forceUpdate();
+      });
+  };
+  const onDelete = (id: string) => {
+    try {
+      warehouse
+        .user_delete_id_delete({
+          path: { id }
+        })
+        .then(data => {
+          PopNotification.success("操作成功");
+          forceUpdate();
+        });
+    } catch (error) {
+      PopNotification.error(`操作失败：${error.message}`);
+    }
+  };
 
   return (
     <>
@@ -56,15 +85,26 @@ const Content = ({ data, forceUpdate, loading, filters }: ContentProps) => {
           title="账户状态"
           render={(_, record) => renderStatus(record)}
         />
-        <Column
+        <Column<UserItem>
           width="20%"
           key="operate"
           title="操作"
           render={(_, record) => (
             <OperaterBtns>
-              <Button type="link">修改</Button>
-              <Button type="link">禁用</Button>
-              <Button type="link">删除</Button>
+              {/* <Button onClick={() => onEdit(record.id)} type="link">
+                修改
+              </Button> */}
+              <Button onClick={() => onSwitch(record)} type="link">
+                {record.status === 0 ? "禁用" : "启用"}
+              </Button>
+              <Popconfirm
+                title="确定删除吗？"
+                onConfirm={() => onDelete(record.id)}
+                okText="确定"
+                cancelText="取消"
+              >
+                <Button type="link">删除</Button>
+              </Popconfirm>
             </OperaterBtns>
           )}
         />
