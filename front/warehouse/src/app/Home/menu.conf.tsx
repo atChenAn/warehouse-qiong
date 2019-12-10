@@ -16,12 +16,12 @@ interface Menu {
 }
 
 export const menuConf: Menu[] = [
-  {
-    title: "个人中心",
-    routePath: "/home",
-    component: React.lazy(() => import("@/app/Center/Center")),
-    icon: "home"
-  },
+  // {
+  //   title: "个人中心",
+  //   routePath: "/home",
+  //   component: React.lazy(() => import("@/app/Center/Center")),
+  //   icon: "home"
+  // },
   {
     title: "用户管理",
     routePath: "/user",

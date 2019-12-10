@@ -48,7 +48,7 @@ function Home(props: Props) {
             {hasLogin ? (
               <Switch>
                 {renderRouter()}
-                <Redirect to="/home" />
+                <Redirect to="/plan/list" />
               </Switch>
             ) : (
               <Spin tip="加载中..." />
